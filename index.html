@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>大疆 DJI - 未来无所不能</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 移除Google Fonts链接，改用本地字体 -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'sans': ['Open Sans', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+            },
+            colors: {
+              dji: {
+                black: '#181818',
+                gray: '#f5f5f5',
+                blue: '#0070d5'
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      /* 隐藏滚动条以便横向滚动更清晰 */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "react/": "https://esm.sh/react@19.2.0/",
+          "react": "https://esm.sh/react@19.2.0",
+          "react-dom/": "https://esm.sh/react-dom@19.2.0/",
+          "lucide-react": "https://esm.sh/lucide-react@0.554.0"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
