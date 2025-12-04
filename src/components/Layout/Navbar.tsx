@@ -24,11 +24,9 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <img 
-              src="/txf-logo.svg" 
-              alt="Logo" 
-              className="h-8 w-auto" 
-            />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" fill="none" className="h-8 w-auto">
+              <text x="100" y="75" font-family="Arial, sans-serif" font-weight="bold" font-size="80" text-anchor="middle" fill="white">TXF</text>
+            </svg>
           </Link>
 
           {/* Desktop Menu */}
