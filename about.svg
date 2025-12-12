@@ -1,0 +1,81 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <!-- 人物轮廓渐变 -->
+    <linearGradient id="personGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(46, 213, 115, 0.3)" />
+      <stop offset="100%" stop-color="rgba(46, 213, 115, 0.1)" />
+    </linearGradient>
+    
+    <!-- 动画定义 -->
+    <animateTransform id="rotateAnim" attributeName="transform" type="rotate" from="0 600 400" to="360 600 400" dur="20s" repeatCount="indefinite" />
+    <animate id="pulseAnim" attributeName="opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite" />
+    <animate id="floatAnim" attributeName="cy" values="200;220;200" dur="4s" repeatCount="indefinite" />
+    <animate id="scaleAnim" attributeName="r" values="50;60;50" dur="3s" repeatCount="indefinite" />
+    <animateTransform id="armRotate1" attributeName="transform" type="rotate" from="-30" to="-20" dur="2s" repeatCount="indefinite" alternate="true" />
+    <animateTransform id="armRotate2" attributeName="transform" type="rotate" from="30" to="20" dur="2s" repeatCount="indefinite" alternate="true" />
+  </defs>
+  
+  <!-- 背景矩形 -->
+  <rect width="100%" height="100%" fill="url(#bgGradient)" />
+  
+  <!-- 装饰圆形 - 带脉冲动画 -->
+  <circle cx="200" cy="200" r="150" fill="rgba(255,255,255,0.1)">
+    <animate xlink:href="#pulseAnim" />
+  </circle>
+  <circle cx="1000" cy="600" r="200" fill="rgba(46, 213, 115, 0.1)">
+    <animate xlink:href="#pulseAnim" begin="1s" />
+  </circle>
+  
+  <!-- 中心人物轮廓 - 带浮动和旋转动画 -->
+  <g transform="translate(600, 400)">
+    <!-- 头部 - 带缩放动画 -->
+    <circle cx="0" cy="-100" r="50" fill="url(#personGradient)">
+      <animate xlink:href="#scaleAnim" />
+    </circle>
+    <!-- 身体 -->
+    <rect x="-30" y="-50" width="60" height="100" rx="30" fill="url(#personGradient)" />
+    <!-- 手臂 - 带摆动动画 -->
+    <rect x="-70" y="-40" width="40" height="15" rx="7" fill="url(#personGradient)" transform="rotate(-30)">
+      <animateTransform xlink:href="#armRotate1" />
+    </rect>
+    <rect x="30" y="-40" width="40" height="15" rx="7" fill="url(#personGradient)" transform="rotate(30)">
+      <animateTransform xlink:href="#armRotate2" />
+    </rect>
+    <!-- 腿部 -->
+    <rect x="-25" y="50" width="20" height="60" rx="10" fill="url(#personGradient)" />
+    <rect x="5" y="50" width="20" height="60" rx="10" fill="url(#personGradient)" />
+  </g>
+  
+  <!-- 装饰元素：书籍和笔，代表教学和创作 - 带浮动动画 -->
+  <g transform="translate(300, 500)">
+    <!-- 书籍 -->
+    <rect x="0" y="0" width="80" height="60" rx="5" fill="rgba(255, 255, 255, 0.2)">
+      <animate attributeName="y" values="0;-5;0" dur="3s" repeatCount="indefinite" />
+    </rect>
+    <rect x="5" y="5" width="70" height="50" rx="3" fill="rgba(255, 255, 255, 0.1)" />
+    <line x1="5" y1="15" x2="75" y2="15" stroke="rgba(255, 255, 255, 0.3)" stroke-width="2" />
+    <line x1="5" y1="25" x2="75" y2="25" stroke="rgba(255, 255, 255, 0.3)" stroke-width="2" />
+    <line x1="5" y1="35" x2="75" y2="35" stroke="rgba(255, 255, 255, 0.3)" stroke-width="2" />
+    <line x1="5" y1="45" x2="75" y2="45" stroke="rgba(255, 255, 255, 0.3)" stroke-width="2" />
+    <!-- 笔 - 带旋转动画 -->
+    <rect x="90" y="10" width="60" height="8" rx="4" fill="rgba(46, 213, 115, 0.5)">
+      <animateTransform attributeName="transform" type="rotate" from="0 120 14" to="5 120 14" dur="1s" repeatCount="indefinite" alternate="true" />
+    </rect>
+    <circle cx="145" cy="14" r="6" fill="rgba(46, 213, 115, 0.7)" />
+  </g>
+  
+  <!-- 装饰元素：播放按钮，代表视频创作 - 带缩放和旋转动画 -->
+  <g transform="translate(900, 300)">
+    <circle cx="0" cy="0" r="50" fill="rgba(46, 213, 115, 0.2)">
+      <animate xlink:href="#scaleAnim" />
+    </circle>
+    <polygon points="-15,-20 25,0 -15,20" fill="rgba(46, 213, 115, 0.6)">
+      <animateTransform attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="10s" repeatCount="indefinite" />
+    </polygon>
+  </g>
+</svg>

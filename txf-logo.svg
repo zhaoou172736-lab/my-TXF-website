@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 120" fill="none">
+  <!-- Exact TXF Logo Path Drawing -->
+  <!-- T Letter -->
+  <path d="M40 20h80v25h-60v65h-20V20z" fill="white"/>
+  <!-- X Letter -->
+  <path d="M110 20L140 60 110 100" stroke="white" stroke-width="25" stroke-linecap="round"/>
+  <path d="M160 20L130 60 160 100" stroke="white" stroke-width="25" stroke-linecap="round"/>
+  <!-- F Letter -->
+  <path d="M175 20h40v25h-25v25h20v30h-40V20z" fill="white"/>
+</svg>

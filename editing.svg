@@ -1,0 +1,118 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景渐变 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e" />
+      <stop offset="100%" stop-color="#16213e" />
+    </linearGradient>
+    <!-- 剪辑元素渐变 -->
+    <linearGradient id="editingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(234, 88, 12, 0.3)" />
+      <stop offset="100%" stop-color="rgba(234, 88, 12, 0.1)" />
+    </linearGradient>
+    
+    <!-- 动画定义 -->
+    <animate id="pulseAnim" attributeName="opacity" values="0.1;0.3;0.1" dur="3s" repeatCount="indefinite" />
+    <animate id="scaleAnim" attributeName="r" values="35;40;35" dur="2s" repeatCount="indefinite" />
+    <animateTransform id="rotateAnim" attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="10s" repeatCount="indefinite" />
+    <animateTransform id="scissorsRotate" attributeName="transform" type="rotate" from="0 0 0" to="10 0 0" dur="1s" repeatCount="indefinite" alternate="true" />
+    <animateTransform id="clockHour" attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="36s" repeatCount="indefinite" />
+    <animateTransform id="clockMinute" attributeName="transform" type="rotate" from="0 0 0" to="360 0 0" dur="6s" repeatCount="indefinite" />
+    <animate id="playheadMove" attributeName="x1" values="-80;-60;-40;-20;0;20;40;60;80;-80" dur="5s" repeatCount="indefinite" />
+    <animate id="playheadMove2" attributeName="x2" values="-80;-60;-40;-20;0;20;40;60;80;-80" dur="5s" repeatCount="indefinite" />
+    <animate id="floatAnim" attributeName="cy" values="600;620;600" dur="4s" repeatCount="indefinite" />
+    <animate id="videoFloat" attributeName="y" values="0;-5;0" dur="3s" repeatCount="indefinite" />
+  </defs>
+  
+  <!-- 背景矩形 -->
+  <rect width="100%" height="100%" fill="url(#bgGradient)" />
+  
+  <!-- 装饰圆形 - 带脉冲动画 -->
+  <circle cx="800" cy="600" r="150" fill="rgba(234, 88, 12, 0.1)">
+    <animate xlink:href="#pulseAnim" />
+    <animate xlink:href="#floatAnim" />
+  </circle>
+  <circle cx="400" cy="200" r="200" fill="rgba(255, 255, 255, 0.1)">
+    <animate xlink:href="#pulseAnim" begin="1s" />
+  </circle>
+  
+  <!-- 中心剪辑图标 -->
+  <g transform="translate(600, 400)">
+    <!-- 剪辑软件界面 - 带浮动动画 -->
+    <rect x="-100" y="-80" width="200" height="160" rx="15" fill="rgba(255, 255, 255, 0.1)">
+      <animate attributeName="y" values="-80;-75;-80" dur="3s" repeatCount="indefinite" />
+    </rect>
+    <rect x="-90" y="-70" width="180" height="140" rx="10" fill="url(#editingGradient)">
+      <animate attributeName="y" values="-70;-65;-70" dur="3s" repeatCount="indefinite" />
+    </rect>
+    <!-- 时间线 -->
+    <g transform="translate(0, 30)">
+      <!-- 时间线轨道 -->
+      <rect x="-80" y="0" width="160" height="40" rx="5" fill="rgba(255, 255, 255, 0.2)" />
+      <!-- 视频片段 - 带缩放动画 -->
+      <rect x="-60" y="5" width="40" height="30" rx="3" fill="rgba(59, 130, 246, 0.6)">
+        <animate attributeName="scale" values="1;1.05;1" dur="2s" repeatCount="indefinite" />
+      </rect>
+      <rect x="-10" y="5" width="50" height="30" rx="3" fill="rgba(46, 213, 115, 0.6)">
+        <animate attributeName="scale" values="1;1.05;1" dur="2s" repeatCount="indefinite" begin="0.5s" />
+      </rect>
+      <rect x="50" y="5" width="35" height="30" rx="3" fill="rgba(234, 88, 12, 0.6)">
+        <animate attributeName="scale" values="1;1.05;1" dur="2s" repeatCount="indefinite" begin="1s" />
+      </rect>
+      <!-- 播放头 - 带移动动画 -->
+      <line x1="-20" y1="-10" x2="-20" y2="50" stroke="rgba(255, 255, 255, 0.8)" stroke-width="2">
+        <animate xlink:href="#playheadMove" />
+        <animate xlink:href="#playheadMove2" />
+      </line>
+    </g>
+    <!-- 预览窗口 -->
+    <g transform="translate(0, -40)">
+      <rect x="-60" y="-30" width="120" height="60" rx="5" fill="rgba(255, 255, 255, 0.2)" />
+      <!-- 播放按钮 - 带缩放动画 -->
+      <polygon points="-10,-15 20,0 -10,15" fill="rgba(255, 255, 255, 0.8)">
+        <animate attributeName="scale" values="1;1.1;1" dur="2s" repeatCount="indefinite" />
+      </polygon>
+    </g>
+  </g>
+  
+  <!-- 装饰元素：剪辑工具 - 带旋转动画 -->
+  <g transform="translate(300, 500)">
+    <!-- 剪刀图标 -->
+    <circle cx="0" cy="0" r="35" fill="rgba(234, 88, 12, 0.2)">
+      <animate xlink:href="#scaleAnim" />
+    </circle>
+    <path d="M -20,-20 L 20,20 M 20,-20 L -20,20" stroke="rgba(234, 88, 12, 0.6)" stroke-width="4" stroke-linecap="round">
+      <animateTransform xlink:href="#scissorsRotate" />
+    </path>
+  </g>
+  
+  <g transform="translate(900, 300)">
+    <!-- 时间图标 - 带时钟动画 -->
+    <circle cx="0" cy="0" r="35" fill="rgba(234, 88, 12, 0.2)">
+      <animate xlink:href="#scaleAnim" />
+    </circle>
+    <circle cx="0" cy="0" r="30" fill="rgba(255, 255, 255, 0.1)" />
+    <!-- 时钟指针 -->
+    <line x1="0" y1="0" x2="0" y2="-20" stroke="rgba(234, 88, 12, 0.6)" stroke-width="3" stroke-linecap="round">
+      <animateTransform xlink:href="#clockHour" />
+    </line>
+    <line x1="0" y1="0" x2="15" y2="10" stroke="rgba(234, 88, 12, 0.6)" stroke-width="3" stroke-linecap="round">
+      <animateTransform xlink:href="#clockMinute" />
+    </line>
+  </g>
+  
+  <!-- 装饰元素：视频片段 - 带浮动动画 -->
+  <g transform="translate(450, 600)">
+    <rect x="0" y="0" width="60" height="40" rx="5" fill="rgba(59, 130, 246, 0.4)">
+      <animate xlink:href="#videoFloat" />
+    </rect>
+    <polygon points="10,10 50,20 10,30" fill="rgba(255, 255, 255, 0.6)" />
+  </g>
+  
+  <g transform="translate(750, 200)">
+    <rect x="0" y="0" width="60" height="40" rx="5" fill="rgba(46, 213, 115, 0.4)">
+      <animate xlink:href="#videoFloat" begin="1s" />
+    </rect>
+    <polygon points="10,10 50,20 10,30" fill="rgba(255, 255, 255, 0.6)" />
+  </g>
+</svg>
