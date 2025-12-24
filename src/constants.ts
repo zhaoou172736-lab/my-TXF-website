@@ -3,11 +3,12 @@
 export const MENU_DATA = [
   { label: '关于唐小肥', href: '/about' },
   { label: '自媒体系统', href: '/media', children: [{ label: '流量密码', href: '/media#media-traffic' }, { label: '爆款逻辑', href: '/media#media-viral' }] },
-  { label: '选题系统', href: '/topic', children: [{ label: '选题技巧', href: '/topic#topic-skills' }] },
+  { label: '选题系统', href: '/topic', children: [{ label: '选题技巧', href: '/topic#topic-skills' }, { label: '剧本打造', href: '/topic#topic-creating' }, { label: '博主拆解', href: '/topic#topic-blogger' }] },
   { label: '剪辑系统', href: '/editing', children: [{ label: '剪映实操', href: '/editing#editing-capcut' }, { label: 'PR 进阶', href: '/editing#editing-pr' }] },
   { label: '调色系统', href: '/color-grading', children: [{ label: '调色原理', href: '/color-grading#color-theory' }, { label: 'LUTs 预设', href: '/color-grading#color-luts' }] },
   { label: '封面系统', href: '/cover', children: [{ label: 'PS 模板', href: '/cover#cover-ps' }, { label: '爆款字体', href: '/cover#cover-fonts' }] },
   { label: '小肥复盘', href: '/topic-review' },
+  { label: '工具', href: '/tools', children: [{ label: '创作工具', href: '/tools#tools-creative' }, { label: '数据分析', href: '/tools#tools-data' }, { label: '游戏设计工具', href: '/game-design' }] },
   { label: '服务与支持', href: '/services', children: [{ label: '联系我们', href: '/services' }, { label: '加入社群', href: '/services' }] },
 ];
 

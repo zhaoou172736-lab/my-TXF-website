@@ -145,6 +145,40 @@ class DouyinApiClient {
       throw error;
     }
   }
+
+  // 获取已开通的权限列表
+  getAvailableScopes() {
+    // 根据抖音开放平台官方说明，网站应用的scope权限通过授权链接参数声明
+    // 支持的scope包括user_info（用户信息）等，根据应用需求添加
+    return ['user_info', 'auth.comment', 'incremental_authorization', 'renew_refresh_token'];
+  }
+
+  // 生成抖音授权链接
+  generateAuthUrl() {
+    const baseUrl = 'https://open.douyin.com/platform/oauth/connect';
+    const scopes = this.getAvailableScopes().join(',');
+    const redirectUri = encodeURIComponent(process.env.DOUYIN_REDIRECT_URI || 'http://localhost:3001/api/douyin/callback');
+    
+    return `${baseUrl}?client_key=${this.clientKey}&response_type=code&scope=${scopes}&redirect_uri=${redirectUri}&state=123456`;
+  }
+
+  // 处理授权回调，获取access_token
+  async handleAuthCallback(code) {
+    try {
+      const response = await axios.post('https://open.douyin.com/oauth/access_token/', {
+        client_key: this.clientKey,
+        client_secret: this.clientSecret,
+        code: code,
+        grant_type: 'authorization_code',
+        redirect_uri: process.env.DOUYIN_REDIRECT_URI || 'http://localhost:3001/api/douyin/callback'
+      });
+      
+      return response.data.data;
+    } catch (error) {
+      console.error('处理授权回调失败:', error);
+      throw error;
+    }
+  }
 }
 
 // 创建抖音API客户端实例
@@ -289,6 +323,58 @@ if (cachedData) {
   console.log('从本地加载了缓存的抖音数据:', cachedData.nickname);
 }
 
+// 获取抖音授权链接
+app.get('/api/douyin/auth/url', (req, res) => {
+  try {
+    const authUrl = douyinClient.generateAuthUrl();
+    res.json({ 
+      success: true, 
+      auth_url: authUrl,
+      message: '抖音授权链接生成成功',
+      client_key: douyinClient.clientKey,
+      scopes: douyinClient.getAvailableScopes()
+    });
+  } catch (error) {
+    console.error('生成抖音授权链接失败:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: '生成授权链接失败',
+      message: error.message
+    });
+  }
+});
+
+// 抖音授权回调处理
+app.get('/api/douyin/callback', async (req, res) => {
+  try {
+    const { code, state } = req.query;
+    
+    if (!code) {
+      return res.status(400).json({ 
+        success: false, 
+        error: '缺少授权码',
+        message: '授权失败，缺少code参数' 
+      });
+    }
+    
+    // 处理授权回调，获取access_token
+    const authResult = await douyinClient.handleAuthCallback(code);
+    
+    res.json({ 
+      success: true, 
+      message: '授权成功',
+      data: authResult
+    });
+  } catch (error) {
+    console.error('处理抖音授权回调失败:', error);
+    res.status(500).json({ 
+      success: false, 
+      error: '处理授权回调失败',
+      message: error.message
+    });
+  }
+});
+
 // 健康检查端点
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', message: '后端服务运行正常' });
@@ -299,7 +385,8 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`后端服务运行在 http://localhost:${PORT}`);
   console.log('可用API端点:');
-  console.log('GET  http://localhost:${PORT}/health          - 健康检查');
-  console.log('GET  http://localhost:${PORT}/api/douyin/home - 获取抖音主页数据');
-  console.log('GET  http://localhost:${PORT}/api/douyin/callback - 抖音授权回调');
+  console.log('GET  http://localhost:${PORT}/health                    - 健康检查');
+  console.log('GET  http://localhost:${PORT}/api/douyin/home           - 获取抖音主页数据');
+  console.log('GET  http://localhost:${PORT}/api/douyin/auth/url       - 获取抖音授权链接');
+  console.log('GET  http://localhost:${PORT}/api/douyin/callback       - 抖音授权回调');
 });
